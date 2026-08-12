@@ -8,9 +8,9 @@ const PORT = process.env.PORT || 5001;
 
 const app = express();
 app.use(express.json())
+
 app.use("/",router)
 app.get("/", (req, res) => {
-  console.log("Hello from auth service");
   res.send("Hello from auth service");
 });
 

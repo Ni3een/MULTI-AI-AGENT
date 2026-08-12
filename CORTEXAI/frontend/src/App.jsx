@@ -1,17 +1,22 @@
 import React from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../utils/firebase';
+import Home from './pages/Home';
+import {useDispatch} from "react-redux"
+import { setUserdata } from './redux/userSlice';
 function App(){
-  const googlelogin=async()=>{
-   const data = await signInWithPopup(auth,googleProvider)
-   console.log(data)
-  }
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    const getUser=async()=>{
+     const data= await getCurrentUser()
+     dispatch(setUserdata(data));
+    }
+    getUser();
+  },[])
   return (
-    <div className="flex items-center justify-center h-screen">
-      <button onClick={googlelogin} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">
-        Continue with Google
-      </button>
-    </div>
+    <>
+    <Home/>
+    </>
   )
 }
 export default App;
